@@ -1,5 +1,15 @@
+/**
+ * Demo of usage.
+ * This is intended to show how you can use the module required bellow 
+ * and at the same time display the output required by the exercise.
+ * 
+ * @public 
+ */
 var linkStationLocator = require( "./LinkStationLocator" );
-
+/**
+ * The information about link stations given in the exercise.
+ * @public {[{}]}
+ */
 var linkStations = [
     {
         x : 0,
@@ -18,8 +28,10 @@ var linkStations = [
     }
 ];
 /**
+ * The location of devices given in the excersise.
+ * 
  * (0,0), (100, 100), (15,10) and (18, 18)
- * @type {*[]}
+ * @public {[{}]}
  */
 var devices = [
     {
@@ -39,7 +51,7 @@ var devices = [
         y : 18
     }
 ];
-
+// call the method that returns the best link stations for the given devices.
 var results = linkStationLocator.locateBestLinkStation( devices, linkStations );
 for( var i = 0; i < results.length; i++ )
 {

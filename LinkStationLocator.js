@@ -106,10 +106,13 @@ function stationPowersForDevice( /* Object */ device )
     return powers;
 }
 /**
- * Finds the best stations from linkStations for the given device.
+ * Finds the best stations from linkStations that are available for the given device.
+ * Note: the returned object has a property .bestStations which is an array. The choice of 
+ * making it an array is to store best stations if there is such a point where two 
+ * stations could equally be the best. i.e two staions can have the same power at that point.
  * 
- * @param {{}} device
- * @returns Object
+ * @param {{}} device see this.locateBestLinkStation
+ * @returns Object - { device: the given device, bestPower: 15, bestStations: [ { x:1, y:3, r:20 } ] }
  */
 this.bestStationForDevice = function( /* Object */ device )
 {
@@ -147,8 +150,10 @@ this.bestStationForDevice = function( /* Object */ device )
  * Finds the best link station with the most power for the given devices.
  * If devices or linkstations are not given the default ones are used instead. See above.
  * 
- * @param {[{}]} devices 
- * @param {[{}]} linkStations 
+ * @param {[{}]} devices - Array of points of objects representing the points of a device's location. 
+ * Example: [ { x:1, y:2 },... ]
+ * @param {[{}]} linkStations - Array of objects representing the location of a link sation and its reach 
+ * Example: [ { x:0, y:3, r:17},... ]
  * @returns Array
  */
 this.locateBestLinkStation = function( /* [] */ devices, /* Array */linkStations )
