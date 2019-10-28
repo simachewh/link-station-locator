@@ -1,4 +1,9 @@
-
+/**
+ * Locates the best available link station for a device placed at a pont x,y
+ * 
+ * LinkStationLocator.js
+ * @public module
+ */
 var util = require( "util" );
 /**
  * Link stationos located at points x and y in the two dimentional x,y plane with distance reach of r.
@@ -25,7 +30,7 @@ var linkStations = [
 /**
  * Devices located at points x and y in the two dinentional x,y plane.
  * 
- * @type {[Object]}
+ * @type {{}[]}
  */
 var devices = [
     {
@@ -47,9 +52,9 @@ var devices = [
 ];
 /**
  * Calculates the distance of a device from a linkStation.
- * 
- * @param {Object} device 
- * @param {Object} linkStation 
+ * Distance = the square root of ( (change in x)^2 - (change in y)^2 )
+ * @param {{}} device 
+ * @param {{}} linkStation 
  */
 function calculateDeviceDistancefromLinkStation( /* Object */ device, /* Object */ linkStation )
 {
@@ -58,12 +63,14 @@ function calculateDeviceDistancefromLinkStation( /* Object */ device, /* Object 
     return Math.sqrt( Math.pow( distanceX, 2 ) + Math.pow( distanceY, 2 ) );
 }
 /**
+ * Calculates the power of the given link station at the point where the given device is located.
+ * Power = ( reach of link station - distance of device ) ^2 
  *
- * @param linkStation
- * @param device
+ * @param {{}} linkStation
+ * @param {{}} device
  * @returns {number}
  */
-function calculatePower( linkStation, device )
+function calculatePower( /* Object */ linkStation, /* Object */ device )
 {
     var power;
     var distance = calculateDeviceDistancefromLinkStation( device, linkStation );
@@ -160,7 +167,6 @@ function locateBestLinkStation( /* Array */ devices, /* Array */linkStations )
         results.push( bestStationForDevice( currentDevice ) );
     }
     return results;
-    //console.log( "Results:  ", util.inspect( results, { depth : null} ) );
 }
 
 module.exports = locateBestLinkStation;

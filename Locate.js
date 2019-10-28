@@ -13,8 +13,12 @@ window.onload = function()
     {
         console.log( "submiting value" );
         var xhr = new XMLHttpRequest();
-        xhr.open( "GET", "/best-stations" );
-        xhr.send( [  { x:0, y:0 }  ] );
+        xhr.open( "POST", "/best-stations" );
+        xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
+        var params = {
+            devices : [  { x:0, y:0 } ]
+        };
+        xhr.send( JSON.stringify( params ) );
         xhr.onload = function()
         {
             console.log( "some result actually came back" );

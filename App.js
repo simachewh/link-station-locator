@@ -1,4 +1,4 @@
-var bestStations = require( "./LinkStaionLocator" );
+var bestStations = require( "./LinkStationLocator" );
 
 var linkStations = [
     {

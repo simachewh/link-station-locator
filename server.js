@@ -1,48 +1,63 @@
 /**
- * Created by Simachew on 25-Jun-16.
+ * 
  */
-
-var express = require( "express" );
-var bodyParser = require( "body-parser" )
+var express = require("express");
+var bodyParser = require("body-parser")
+var util = require("util");
+var linkStationLocator = require("./LinkStationLocator")
 var app = express();
-var path = require( "path" );
+var path = require("path");
 
-// Handling CORS (cross-origin resource sharing) requests
-app.use(function(req, res, next) {
-    res.setHeader( 'Access-Control-Allow-Origin', '*' );
-    res.setHeader( 'Access-Control-Allow-Methods', 'GET, POST' );
-    res.setHeader( 'Access-Control-Allow-Headers',
-        'X-Requested-With,content-type, Authorization' );
+/**
+ * Handle COORS
+ */
+app.use(function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+    res.setHeader('Access-Control-Allow-Headers',
+        'X-Requested-With,content-type, Authorization');
     next();
 });
 
-// Set the public folder to serve public assets.
-app.use( express.static( __dirname + "/" ) );
-app.use( bodyParser.urlencoded( { extended: true } ) );
-app.use( bodyParser.json() );
-
-// Set route to the index.html file.
-/**app.get("*", function (req, res) {
-    res.sendFile( path.join( __dirname + "/index.html" ) )
-});*/
-
-app.get( "/best-stations", function( request, response)
-{
-
-    if( !request.boody )
-    {
-        response.json( "body is missing" )
-        //return;
+// Set the root folder to serve public assets.
+app.use(express.static(__dirname + "/"));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+/**
+ * End point /best-stations. Accepts devices and an optional locations.
+ * Calculates the best link station for each device and return it in the response.
+ * Response looks like { device : { x:12, y:13}, bestPower: 22, bestStations:[ {x:0, y:2, r:15} ] }.
+ * Here response.bestStations is an arry incase there are two or more staions that fits best having 
+ * the same power for the device.
+ *
+ */
+app.post("/best-stations", function (request, response) {
+    console.log("Recived request ", request.body)
+    var params;
+    var devices;
+    var stations;
+    var result;
+    if (request.body) {
+        params = request.body;
     }
-    if( !request.body.devices )
-    {
-        // todo : incorect params
+    else {
+        response.json("body is missing")
+        return;
     }
-    var devices = request.body.devices;
-    var stations = request.boody.stations || null;
-    response.json( "you made it" )
-} )
+    if (!params.devices) {
+        response.json("body is missing")
+        return;
+    }
+    if (!params.stations) {
+        stations = null;
+    }
+    devices = params.devices;
+    stations = params.stations;
+    result = linkStationLocator(devices);
+    console.log("result = ", util.inspect(result, false, null));
+    response.json(result);
+})
 
 // Start the server on port 8080 (http://localhost:8080)
-var litsner = app.listen(Number(process.env.PORT || 8080 ) );
-require( "util" ).log( "Starting server at " + litsner.address().port );
+var litsner = app.listen(Number(process.env.PORT || 8080));
+util.log("Starting server at " + litsner.address().port);
