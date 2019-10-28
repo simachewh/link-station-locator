@@ -1,16 +1,19 @@
 /**
  * Locates the best available link station for a device placed at a pont x,y
- * 
+ *
  * LinkStationLocator.js
  * @public module
  */
+function LinkStationLocator(){
+
 var util = require( "util" );
 /**
- * Link stationos located at points x and y in the two dimentional x,y plane with distance reach of r.
+ * Link stationos located at points x and y in the two dimentional x,y 
+ * plane with distance reach of r.
  * 
  * @type {{}[]}
  */
-var linkStations = [
+this.linkStations = [
     {
         x : 0,
         y : 0,
@@ -32,7 +35,7 @@ var linkStations = [
  * 
  * @type {{}[]}
  */
-var devices = [
+this.devices = [
     {
         x : 0,
         y : 0
@@ -97,9 +100,9 @@ function stationPowersForDevice( /* Object */ device )
     var distance;
     var power;
     var powers = {}
-    for( var i = 0; i < linkStations.length; i++ )
+    for( var i = 0; i < this.linkStations.length; i++ )
     {
-        var currentStation = linkStations[ i ];
+        var currentStation = this.linkStations[ i ];
         powers[ i ] = calculatePower( currentStation, device );
     }
     return powers;
@@ -107,10 +110,10 @@ function stationPowersForDevice( /* Object */ device )
 /**
  * Finds the best stations from linkStations for the given device.
  * 
- * @param {Object} device
+ * @param {{}} device
  * @returns Object
  */
-function bestStationForDevice( /* Object */ device )
+this.bestStationForDevice = function( /* Object */ device )
 {
     var result = {
         device : device,
@@ -120,9 +123,9 @@ function bestStationForDevice( /* Object */ device )
     var bestPower = 0;
     var currentStation;
     var currentPower;
-    for( var i = 0; i < linkStations.length; i++ )
+    for( var i = 0; i < this.linkStations.length; i++ )
     {
-        currentStation = linkStations[ i ];
+        currentStation = this.linkStations[ i ];
         currentPower = calculatePower( currentStation, device );
         if( currentPower <= 0 )
         {
@@ -146,15 +149,15 @@ function bestStationForDevice( /* Object */ device )
  * Finds the best link station with the most power for the given devices.
  * If devices or linkstations are not given the default ones are used instead. See above.
  * 
- * @param {Array} devices 
- * @param {Array} linkStations 
+ * @param {[{}]} devices 
+ * @param {[{}]} linkStations 
  * @returns Array
  */
-function locateBestLinkStation( /* Array */ devices, /* Array */linkStations )
+this.locateBestLinkStation = function( /* [] */ devices, /* Array */linkStations )
 {
-    if( linkStations )
+    if( !linkStations )
     {
-        this.linkStations = linkStations;
+        linkStations = this.linkStations;
     }
     if( !devices )
     {
@@ -164,9 +167,9 @@ function locateBestLinkStation( /* Array */ devices, /* Array */linkStations )
     for( var i = 0; i < devices.length; i++ )
     {
         var currentDevice = devices[ i ];
-        results.push( bestStationForDevice( currentDevice ) );
+        results.push( this.bestStationForDevice( currentDevice ) );
     }
     return results;
 }
-
-module.exports = locateBestLinkStation;
+}
+module.exports = new LinkStationLocator();

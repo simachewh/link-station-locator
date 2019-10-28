@@ -32,7 +32,7 @@ app.use(bodyParser.json());
  *
  */
 app.post("/best-stations", function (request, response) {
-    console.log("Recived request ", request.body)
+    console.log("Recived request ", request.body )
     var params;
     var devices;
     var stations;
@@ -41,20 +41,20 @@ app.post("/best-stations", function (request, response) {
         params = request.body;
     }
     else {
-        response.json("body is missing")
+        response.json("body is missing");
         return;
     }
     if (!params.devices) {
-        response.json("body is missing")
-        return;
+        params.devices = null;
     }
+    console.log( "devices are : ", params.devices )
     if (!params.stations) {
         stations = null;
     }
     devices = params.devices;
     stations = params.stations;
-    result = linkStationLocator(devices);
-    console.log("result = ", util.inspect(result, false, null));
+    result = linkStationLocator.locateBestLinkStation(devices,stations);
+    //console.log("result = ", util.inspect(result, false, null));
     response.json(result);
 })
 

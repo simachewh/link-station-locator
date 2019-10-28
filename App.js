@@ -1,4 +1,4 @@
-var bestStations = require( "./LinkStationLocator" );
+var linkStationLocator = require( "./LinkStationLocator" );
 
 var linkStations = [
     {
@@ -40,7 +40,7 @@ var devices = [
     }
 ];
 
-var results = bestStations( devices, linkStations );
+var results = linkStationLocator.locateBestLinkStation( devices, linkStations );
 for( var i = 0; i < results.length; i++ )
 {
     var current = results[ i ];
