@@ -77,7 +77,6 @@ function calculatePower( /* Object */ linkStation, /* Object */ device )
 {
     var power;
     var distance = calculateDeviceDistancefromLinkStation( device, linkStation );
-    //console.log( "**** distance ", util.inspect( distance ) );
     if( distance > linkStation.r )
     {
         power = 0;
@@ -85,7 +84,6 @@ function calculatePower( /* Object */ linkStation, /* Object */ device )
     else
     {
         power = Math.pow( ( linkStation.r - distance ), 2 );
-        //console.log( "power from reach ", linkStation.r, " and distance = " , power);
     }
     return power;
 }

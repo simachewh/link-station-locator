@@ -47,14 +47,12 @@ app.post("/best-stations", function (request, response) {
     if (!params.devices) {
         params.devices = null;
     }
-    console.log( "devices are : ", params.devices )
     if (!params.stations) {
         stations = null;
     }
     devices = params.devices;
     stations = params.stations;
     result = linkStationLocator.locateBestLinkStation(devices,stations);
-    //console.log("result = ", util.inspect(result, false, null));
     response.json(result);
 })
 
