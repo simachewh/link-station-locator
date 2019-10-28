@@ -32,7 +32,7 @@ window.onload = function () {
             }
             else
             {
-                str = "No link station whithin reach for point" + x + "," + y;
+                str = "No link station whithin reach for point : " + x + "," + y;
             }
             document.getElementById("results").innerHTML = str;
         }
