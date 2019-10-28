@@ -1,0 +1,20 @@
+{
+  "name": "linkstations",
+  "version": "1.0.0",
+  "description": "Locates the best link station with the most power for a device loated at any point, say x,y in the 2D space.",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "bootstrap": "^4.3.1",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.4"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Simachew",
+  "license": "ISC"
+}
