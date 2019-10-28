@@ -58,10 +58,10 @@ for( var i = 0; i < results.length; i++ )
     var current = results[ i ];
     if( current.bestPower == 0 )
     {
-        console.log( "No link station whithin reach for point ", current.device.x, ", ", current.device.y, );
+        console.log( "No link station whithin reach for point ", current.device.x, ",", current.device.y, );
     }
     else
     {
-        console.log( "Best link station for point ", current.device.x, ",", current.device.y, " is", current.bestStations[ 0 ].x, ",", current.bestStations[ 0 ].y, " with power ", current.bestPower );
+        console.log( "Best link station for point ", current.device.x, ",", current.device.y, " is ", current.bestStations[ 0 ].x, ",", current.bestStations[ 0 ].y, " with power ", current.bestPower );
     }
 }

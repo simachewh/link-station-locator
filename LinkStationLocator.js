@@ -88,24 +88,6 @@ function calculatePower( /* Object */ linkStation, /* Object */ device )
     return power;
 }
 /**
- * Calculates the power that is available from each station for the given device.
- *
- * @param device
- * @returns Array
- */
-function stationPowersForDevice( /* Object */ device )
-{
-    var distance;
-    var power;
-    var powers = {}
-    for( var i = 0; i < this.linkStations.length; i++ )
-    {
-        var currentStation = this.linkStations[ i ];
-        powers[ i ] = calculatePower( currentStation, device );
-    }
-    return powers;
-}
-/**
  * Finds the best stations from linkStations that are available for the given device.
  * Note: the returned object has a property .bestStations which is an array. The choice of 
  * making it an array is to store best stations if there is such a point where two 
@@ -119,9 +101,8 @@ this.bestStationForDevice = function( /* Object */ device )
     var result = {
         device : device,
         bestPower : 0,
-        bestStations : []
+        bestStations : [] // todo : is this a bit of overthinking
     }
-    var bestPower = 0;
     var currentStation;
     var currentPower;
     for( var i = 0; i < this.linkStations.length; i++ )
