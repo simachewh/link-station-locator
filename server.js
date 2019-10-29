@@ -32,7 +32,6 @@ app.use(bodyParser.json());
  *
  */
 app.post("/best-stations", function (request, response) {
-    console.log("Recived request ", request.body )
     var params;
     var devices;
     var stations;
