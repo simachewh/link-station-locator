@@ -43,7 +43,7 @@ Two files There are two files in this directroy which holds the solution.
 - LinkStationLocator.js - which is a module that exposes a method to get the best link stations given locations of devices and link stations. If those locations are not provided it will display answers for the solution
 - App.js - uses the methos that is exposed by the module above.
 
-### Requirements
+### How to run
 
 To the run the app you need a node.js environment
 
